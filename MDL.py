@@ -19,18 +19,30 @@ g2f = 'karate_club_edges.xml.gz'
 g3f = 'RLT_c_4_g_30.xml.gz'
 g4f = 'RLT_c_40_g_3.xml.gz'
 g5f = 'RLT_c_40_g_30.xml.gz'
+glist = [g1f,g2f,g3f,g4f,g5f]
+gName = g2f
+if gName in glist:
+    g = load_graph(gName)
+else:
+    g = collection.data[gName]
+print("Processing " + gName)
+#We are going to ignore anything outside the largest component
+g = GraphView(g, vfilt=label_largest_component(GraphView(g, directed=False)))
 
-gList = [g1f,g2f,g3f,g4f,g5f]
+state_MDL = minimize_blockmodel_dl(g)
 
-g1 = load_graph(gList[4])
+b = state_MDL.b
+k = len(set(b.a))
+print("k = ", k)
+state = BlockState(g, B=g.num_vertices(), deg_corr=True)
+state = multilevel_minimize(state, B=k)
+try:
+    dirname = "MDL/" + gName.strip(".xml.gz")
+    os.mkdir(dirname)
+except:
+    print("Directory already exists")
 
-g = collection.data["serengeti-foodweb"]
-
-state = minimize_blockmodel_dl(g)
-
-b = state.b
-#t = get_hierarchy_tree(bstack)
-print(len(set(b.a)))
-graph_draw(g,vertex_fill_color=b)
-
-print('here')
+graph_draw(g,vertex_text=g.vertex_index,vertex_fill_color=state.get_blocks(), output=dirname+ "/" + gName.strip(".xml.gz") + ".pdf")
+mat = state.get_matrix()
+with open(dirname + "/mat.p","w") as outfile:
+    pickle.dump(mat,outfile)
