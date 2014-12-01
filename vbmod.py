@@ -253,11 +253,11 @@ def learn(A,K,net0={},opts={}):
         F.append(betaln(ap,bp)-betaln(ap0,bp0)+betaln(am,bm)-betaln(am0,bm0)+sum(gammaln(a))-gammaln(sum(a))-(sum(gammaln(a0))-gammaln(sum(a0)))-sum(multiply(Qmat,log(Qmat))))
         F[i]=-F[i]
         
-        print ("iteration", i+1 , ": F =", F[i])
+        # print ("iteration", i+1 , ": F =", F[i])
 
         # F should always decrease
-        if (i>1) and F[i] > F[i-1]:
-            print ("\twarning: F increased from", F[i-1] ,"to", F[i])
+        # if (i>1) and F[i] > F[i-1]:
+        #     print ("\twarning: F increased from", F[i-1] ,"to", F[i])
 
         if (i>1) and (abs(F[i]-F[i-1]) < TOL_DF):
             break
@@ -374,14 +374,14 @@ def learn_restart(A,Kvec,net0={},opts={}):
             net_KR.append(learn(A,K,net0,opts))
             F_KR[r]=net_KR[r]['F']
 
-        print ("find best run for this value of K")
+        # print ("find best run for this value of K")
         (rndx,)=where(F_KR==F_KR.min())
         
         rndx=rndx[0]
         net_K.append(net_KR[rndx])
         F_K[kndx]=net_K[kndx]['F']
 
-        print ("best run for K =", K ,": F =", F_K[kndx])
+        # print ("best run for K =", K ,": F =", F_K[kndx])
 
     # find best run over all K values
     (kndx,)=where(F_K==F_K.min())
@@ -461,14 +461,14 @@ def demo():
     tp=(ktot-kout)/(N/K-1)
     tm=kout/(N*(K-1)/K)
  
-    print ("generating random adjacency matrix ... ")
+    # print ("generating random adjacency matrix ... ")
     A=rnd(N,K,tp,tm)
  
-    print ("running variational bayes ... ")
+    # print ("running variational bayes ... ")
     t=time()
     (net,net_K)=learn_restart(A,Kvec)
-    print ("finished in", time()-t , "seconds")
-    print ("displaying results ... ")
+    # print ("finished in", time()-t , "seconds")
+    # print ("displaying results ... ")
     restart_figs(A,net,net_K)
     show()
     return net
@@ -498,15 +498,15 @@ def demo_largeN(N=1e3,Kvec=array([4,3,5]),ktot=16,kout=6):
     tp=(ktot-kout)/(float(N)/K-1)
     tm=kout/(float(N)*(K-1)/K)
  
-    print ("generating random adjacency matrix ... ")
+    # print ("generating random adjacency matrix ... ")
     # slow right now
     A=rnd(N,K,tp,tm)
  
-    print ("running variational bayes ... ")
+    # print ("running variational bayes ... ")
     t=time()
     (net,net_K)=learn_restart(A,Kvec,net0,opts)
-    print ("finished in", time()-t , "seconds")
-    print ("displaying results ... ")
+    # print ("finished in", time()-t , "seconds")
+    # print ("displaying results ... ")
     restart_figs(A,net,net_K)
     show()
 
