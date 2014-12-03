@@ -10,13 +10,14 @@ import time
 import os
 
 n = 1000
-k = 5.0
+k = 4.0
 
 def deg_sample():
     return k
 
 
 g = random_graph(n,deg_sample,directed=False)
+random_rewire(g,"erdos")
 
 graph_draw(g)
 
