@@ -9,8 +9,8 @@ import sys
 import time
 import os
 
-cliqueSize = 4
-numCliques = 20
+cliqueSize = 16
+numCliques = 2
 
 g = Graph()
 g.set_directed(False)
@@ -40,10 +40,14 @@ def connectCliques(g,grpString):
     lstvBridges = list(vBridges)
     
     for i in range(0,len(lstvBridges)):
-        if i != len(lstvBridges)-1:
-            g.add_edge(lstvBridges[i],lstvBridges[i+1])
+        if len(lstvBridges) == 2:
+            g.add_edge(lstvBridges[i],lstvBridges[1])
+            break
         else:
-            g.add_edge(lstvBridges[i],lstvBridges[0])
+            if i != len(lstvBridges)-1:
+                g.add_edge(lstvBridges[i],lstvBridges[i+1])
+            else:
+                g.add_edge(lstvBridges[i],lstvBridges[0])
 
 for i in range(0,numCliques):
     g = makeClique(g,cliqueSize,i)
