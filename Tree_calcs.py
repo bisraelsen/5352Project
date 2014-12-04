@@ -1,44 +1,39 @@
 #!/usr/bin/env python
 
-from pylab import savefig
 from vbmod import *
 import matplotlib.pyplot as plt
-import pickle
-
 from graph_tool.all import *
-import os
 import sys
-
-graph_loc = "~/brett.israelsen@gmail.com/Education/Graduate/Fall 2014/CS5352/Project/saved_graphs"
-
-files = os.listdir(graph_loc)
-
-n_pct_dist_b = {}
-lvl_dist_b = {}
-
-n_pct_dist_m = {}
-lvl_dist_m = {}
-
-for f in files[1:2]:
-    if "Tree" in f:
-        g = load_graph(f)
-        n = g.num_vertices()    
-        b_grp = g.vp['bayes'].a
-        m_grp = g.vp['mdl'].a
-
-        lvls = g.vp['Level'].a
-
-        for grp in list(set(b_grp)):
-            lvl_dist_b[f].append(lvls[b_grp == grp])
-            n_pct_dist_b[f].append(sum(b_grp == grp)/n)
-
-        for grp in list(set(m_grp)):
-            lvl_dist_m[f].append(lvls[m_grp == grp])
-            n_pct_dist_m[f].append(sum(m_grp == grp)/n)
+import scipy
 
 
+graph_loc = sys.argv[1]
+
+g = load_graph(graph_loc)
+N = g.num_vertices()
+
+b_grp = g.vp['bayes'].a
+m_grp = g.vp['mdl'].a
 
 
+def do_stuff(grp, m_grp):
+    nvN = sum(m_grp == grp)/float(N)
+    sys.stdout.write(str(nvN) + " ")
+    g2 = GraphView(g, vfilt=lambda e: m_grp[e] == grp)
+    avg = vertex_average(g2, 'total')
+    sys.stdout.write(str(avg[0]) + " ")
+    sys.stdout.write(str(avg[1]) + " ")
+    
+    ed = g2.num_edges() / scipy.misc.comb(g2.num_vertices(), 2)
+    sys.stdout.write(str(ed))
+    print("")
 
 
-        
+for grp in list(set(b_grp)):
+    sys.stdout.write("bayes ")
+    do_stuff(grp, b_grp)
+
+
+for grp in list(set(m_grp)):
+    sys.stdout.write("mdl ")
+    do_stuff(grp, m_grp)
