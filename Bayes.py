@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
 from pylab import savefig
+import pickle
 from vbmod import *
+import sys
 
 from graph_tool.all import *
 import os
@@ -18,38 +20,47 @@ gList = [g1f,g2f,g3f,g4f,g5f,g6f]
 # g1 = load_graph(gList[2])
 # g = collection.data["football"]
 
-for (gName,g) in ([(x,load_graph(x)) for x in gList] + collection.data.items()):
-    A = adjacency(g)
-    # graph_draw(g)
-    
-    N=A.shape[0]        # number of nodes
-    Kvec=range(1,40+1) # range of K values over which to search
-    
-    # hyperparameters for priors
-    net0={}
-    net0['ap0']=N*1.
-    net0['bp0']=1.
-    net0['am0']=1.
-    net0['bm0']=N*1.
-    
-    # options
-    opts={}
-    opts['NUM_RESTARTS']=25
-    
-    # run vb
-    (net,net_K)=learn_restart(A,Kvec,net0,opts)
-    
-    # display figures
-    restart_figs(A,net,net_K)
-    dirname = "Bayes/" + gName.strip(".xml.gz")
-    try:
-        print("mkdir " + dirname)
-        os.mkdir(dirname)
-    except Exception as e:
-        print("Directory already exists")
+gName = sys.argv[1]
+if gName in collection.data:
+    g = collection.data[gName]
+else:
+    g = load_graph(gName)
 
-    f = open( dirname + "/net.txt", "w")
-    f.write("Net = " + str(net))
-    f.close()
+A = adjacency(g)
+# graph_draw(g)
 
-    savefig(dirname + "/figure.png");
+N=A.shape[0]        # number of nodes
+Kvec=range(1,40+1) # range of K values over which to search
+
+# hyperparameters for priors
+net0={}
+net0['ap0']=N*1.
+net0['bp0']=1.
+net0['am0']=1.
+net0['bm0']=N*1.
+
+# options
+opts={}
+opts['NUM_RESTARTS']=25
+
+# run vb
+(net,net_K)=learn_restart(A,Kvec,net0,opts)
+
+# display figures
+restart_figs(A,net,net_K)
+dirname = "Bayes/" + gName.strip(".xml.gz")
+try:
+    print("mkdir " + dirname)
+    os.mkdir(dirname)
+except Exception as e:
+    print("Directory already exists")
+
+with open(dirname + "/net.txt.k", 'w') as f:
+    f.write(str(net['K']))
+
+f = open(dirname + "/net.txt", "w")
+f.write("Net = " + str(net))
+f.close()
+
+
+savefig(dirname + "/figure.png");

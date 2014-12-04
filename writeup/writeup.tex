@@ -1,7 +1,11 @@
 \documentclass[twocolumn,twoside]{IEEEtran}
 
-\nonstopmode
-\title{Networks}
+\usepackage{graphicx}
+% \usepackage{minipage}
+
+\nonstopmode \title{Comparison of Variational Bayes and Minimum Description
+Length Algorithms for Determining $k$ in Undirected Networks}
+
 \author{Brett Israelsen & Joshua Rahm}
 
 
@@ -12,24 +16,35 @@
 We have compared two different algorithms for discovering
 the number of groups, $k$, in a network given no prior information about the
 structure of the network. The two algorithms we have tested in this project are
-the Minimum Description Length (MDL) and Variational Bayes (VB)
+the Minimum Description Length (MDL) and Variational Bayes (VB).
 \end{abstract}
 
-Lorem ipsum dolor sit amet, nec minim fabellas an. Mea mentitum mnesarchum no,
-an duis autem posidonium has, soleat percipit duo eu. No eius adversarium cum.
-Eos eu mazim aeterno rationibus, sea tale magna brute eu, ut nec probo adhuc.
-Ex eos possim nominavi recteque.
+\section*{Introduction}
 
- No novum audire assentior eam, cetero mnesarchum an pri, natum velit vidisse
- in cum. Quo falli accumsan neglegentur ea, diceret rationibus dissentiet ut
- sea. Duo ei nemore eligendi liberavisse, usu odio ferri essent in. Pri te
- noluisse assueverit dissentiet. Augue harum sapientem ad ius, at cum facilisis
- rationibus. In qui cetero delenit electram.
+Sometimes, when given a network, it is useful to find community structure in a
+network in order to be able to do further analysis into the structure of the
+network. Many times, little to no prior information is given about the state of
+the network is known. Given this as the case, standard modularity measures like
+greedy agglomeration and the KL heuristic are more difficult to use because of their
+sensitivity to degree such as in the famous Karate Club network.
 
- Suas aeque nostrud ei has, laoreet maiestatis te est, vis id vero menandri. Eu
- cetero convenire duo, sit euismod eruditi theophrastus ea. Eos illud
- deseruisse in, duo ceteros adversarium accommodare ut. Dicit eirmod eleifend
- cu cum.
+To combat this, there are several algorithms used to estimate the number of groups ($k$)
+in a network, an from there, a reduction algorithm may be used to determine the association
+of each vertex in each of the $k$ groups.
+
+In this paper, we have compared the results obtained from two such algorithms;
+Variational Bayes and Minimum Description Length.
+
+\section*{Background}
+
+Suas aeque nostrud ei has, laoreet maiestatis te est, vis id vero menandri. Eu
+cetero convenire duo, sit euismod eruditi theophrastus ea. Eos illud
+deseruisse in, duo ceteros adversarium accommodare ut. Dicit eirmod eleifend
+cu cum.
+
+\includegraphics[width=\linewidth]{pgp.png}
+
+\includegraphics[width=\linewidth]{Bayes/footba/figure.png}
 
  No ius dicant soluta nominavi, at fabulas disputando nec, te vim dico debitis
  delicata. Suavitate ocurreret ut vim, in graece vivendo voluptatibus qui. Ei
@@ -40,6 +55,7 @@ Ex eos possim nominavi recteque.
  oporteat postulant pro ei. Nostrud percipitur pri cu. An malis epicuri
  explicari vix, mei at amet dico.
 
+\section*{Approach}
  Duo ea reque atqui forensibus, inimicus assentior an vel. Cu pertinacia
  vituperatoribus usu. Pro recusabo constituam ei. Vis vero argumentum an. Et
  per prompta euismod ancillae, ut falli fabellas pro, eu errem quodsi iuvaret
@@ -69,6 +85,96 @@ Ex eos possim nominavi recteque.
  vivendo eam. Vix minim option in, ius in suavitate adipiscing. Virtute
  fastidii assentior eos no, possim dignissim consequat cu usu. No mel porro
  volutpat.
+
+\section*{Results \& Discussion}
+
+
+
+% For tree graphs:
+%
+% n_i over N for each group i as a histogram
+% Distribution of level by community
+% 
+% For Ring Graphs:
+%
+%   n_i over n_c
+%   m_i over (choose n_c 2)
+%   average degree for MDL
+%
+% Price:
+%   
+% Poisson:
+%   Average degree of each group
+\subsection*{Configuration Model}
+
+Random graphs are an interesting set of null models. One will expect
+one of two extremes to occur with these algorithms; either the algorithm
+will find as many groups as vertices, or will find only one large group
+with all vertices.
+
+\includegraphics[width=\linewidth]{ER_n_1000_k_5_0.png}
+
+The above ridiculogram exemplifies the lack of structure detected by the
+VB algorithm. However, only 37 groups were detected. This is below the maximal
+threshold, but still any groups.
+
+\subsection*{\underline{Well-Known Graphs}}
+
+We have run these algorithms on graphs which are well known. And have analyzed the
+results.
+
+\subsection*{Adjective-Nouns}
+\input{include/adjnoun.tex}
+
+\subsection*{Bow-tie}
+\input{include/bowtie.tex}
+
+\subsection*{Dolphins}
+\input{include/dolphins.tex}
+
+\subsection*{Les Mis\'{e}rables}
+\input{include/lesmis.tex}
+
+\subsection*{Football}
+\input{include/football.tex}
+
+\subsection*{Zachary Karate Club}
+\input{include/karate.tex}
+
+\subsection*{Political Books}
+\input{include/polbooks.tex}
+
+\subsection*{Serengeti Foodweb}
+\input{include/serengeti-foodweb.tex}
+
+\subsection*{celegansneural}
+\subsection*{cond-mat}
+\subsection*{cond-mat-2003}
+\subsection*{cond-mat-2005}
+\subsection*{hep-th}
+\subsection*{Network Science}
+\subsection*{PGP Strong 2009}
+\subsection*{Political Blogs}
+\subsection*{Power Grid}
+
+\subsection*{\underline{Generated Graphs}}
+
+\subsection*{Price Model}
+
+\subsection*{Trees}
+\input{include/trees.tex}
+
+\subsection*{Ring Graphs}
+
+\subsection*{Poisson Distrubted Random Graph}
+
+\subsection*{Configuration Model of Existing Graphs}
+
+\subsubsection*{Karate Club}
+
+\subsubsection*{Sarengeti Food Web}
+
+\subsubsection*{Political Books}
 
  Salutatus torquatos liberavisse ut pro, sensibus ullamcorper ut his. Dicit
  saepe vocent sea eu. Est cu euripidis disputando, eu maiorum vivendum mei. Ex
@@ -120,6 +226,7 @@ Ex eos possim nominavi recteque.
  timeam incorrupte no. Et oportere senserit mei, vocent aliquid ne vim, ea eos
  legendos dissentiunt.
 
+\section*{Conclusions}
  At ludus lucilius sed. Latine debitis in eam, vis vide apeirian patrioque id,
  no lorem choro nec. At prima antiopam duo. In sed habeo iisque. An pro veniam
  noster, ut nec ornatus ancillae. Vel fabellas disputationi ut, cum enim

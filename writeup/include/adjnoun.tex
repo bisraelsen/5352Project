@@ -1,0 +1,28 @@
+\begin{minipage}{0.45\linewidth}
+MDL
+\centering
+\includegraphics[width=\linewidth]{../MDL/adjnoun/adjnoun.png}
+$K=1$
+
+\end{minipage}
+\begin{minipage}{0.45\linewidth}
+Bayes
+\centering
+\includegraphics[width=\linewidth]{../Bayes/adjnoun/adjnoun.png}
+$K=40$
+\end{minipage}
+\vspace{10pt}
+
+This graph begins to exemplify that MDL and Bayes both approach a graph
+in a very different way. The difference in philosophy is that the way Bayes
+treats a graph which has no structure is to make as many of the nodes as possible
+their own group. Notice that the $k$ VB found maxed out. 
+
+The value of the complexity over the number of iterations is shown by this graph.
+\includegraphics[width=\linewidth]{../Bayes/adjnoun/figure.png}
+We can see that over time the complexity never converges over the course of 40 iterations.
+This, as far as we can tell, means the graph really does not have any discernible groups according
+to Bayes.
+
+Like the Bayes, MDL did not find any discernible groups. This, however, is shown
+by MDL as a graph with only one group.
