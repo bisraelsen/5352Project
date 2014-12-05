@@ -39,7 +39,7 @@ def do_stuff(grp, m_grp,strProp):
     sys.stdout.write(str(avg[1]) + " ")
     
     ed = g2.num_edges() / scipy.misc.comb(g2.num_vertices(), 2)
-    sys.stdout.write(str(ed))
+    sys.stdout.write(str(ed) + " ")
 
     E = g2.num_edges()
     g3 = GraphView(g,efilt = diffEdgeType(g, strProp,grp))
