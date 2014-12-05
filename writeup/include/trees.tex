@@ -1,18 +1,69 @@
-\begin{minipage}{0.45\linewidth}
-MDL
-\centering
-\includegraphics[width=\linewidth]{../MDL/Tree_c_6_l_6/Tree_c_6_l_6.png}
-$K=18$
+Our first set of synthesized data is on different sets of
+binary trees of different depths $l$. We have taken data from
+the all positive $l \le 10$. These graphs are all regular binary
+trees with no entropy or randomness.
 
+After building these graphs, it became apparent that both MDL and
+VB were detecting the bipartite nature of the trees.
+
+\begin{minipage}{\linewidth}
+
+$l=5$
+
+\showgraph{Tree_c_2_l_5}
+
+$l=7$
+
+\showgraph{Tree_c_2_l_7}
+
+$l=10$
+
+\showgraph{Tree_c_2_l_10}
 \end{minipage}
-\begin{minipage}{0.45\linewidth}
-Bayes
-\centering
-\includegraphics[width=\linewidth]{../Bayes/Tree_c_6_l_6/Tree_c_6_l_6.png}
-$K=39$
-\end{minipage}
+
+These are an interesting set of graphs. They are all binary trees with
+the levels ($l$) 5, 7 and 10 respectively.
+
+with MDL, the results are simple. The graph of level 5 is found to have
+no groups, but after that, MDL finds the disassortative pattern which
+is the bipartite nature of trees; the odd generations are a part of
+group $A$ and the even generations are a part of a second group $B$.
+
+VB contains the more interesting results now. Noticably, VB has run away
+on the tree of depth 5, reporting each node as its own group.  As it
+turns out, it does this for depths of 4 ond 6 as well. Beyond that, the
+algorithm follows an interesting pattern where it, like MDL, finds a
+disaccociative pattern, but unlike MDL it has multiple \emph{pairs} of
+groups that alternate with eachother. These pairs exist independently in
+separate branches of the tree. This causes the number of groups in the
+graph to grow roughly linearly with the number of vertices in the graph
+
+To illustrate this, the graph below shows how the number of groups $k$ is
+affected by the depth of the tree:
+
+\includesvg[width=\linewidth]{kvslev}
+
+Regarding the value of $l$ that caused VB to diverge. Examining the
+learning curve yeilds an insightful result.
+
+\showlearning{Tree_c_2_l_5}
+
+It is clear that the number of groups should have been chosen to be 5,
+however, due to the non-greedy nature of the VB algorithm, it errored
+on the side of a larger number of simpler groups. To patch this issue,
+we introduce a modification to VB to make it greedy. Using this new greedy
+approach, we can see the results of re computing the groups for $k=5$
+
+\begin{minipage}{\linewidth}
+\showbayes{Tree_c_2_l_5_greedy}
 \vspace{10pt}
+\end{minipage}
 
-Once again, VB finds far more groups than the DL algorithm. However, the VB
-did not max out the number, however, it came close to being maxing out and
-it could be due to simple noise that the algorithm chose 39 over 40.
+The greedy approach allows VB to value fewer groups as being simpler than
+having many more groups. Using this new, greedy approach, we may re-model
+the results to rebuild the plot from above.
+
+\includesvg[width=\linewidth]{kvslev_greedy}
+
+The exponential relationship is easier to see now that the graph
+has been fixed.
