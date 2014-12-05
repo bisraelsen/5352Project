@@ -7,8 +7,8 @@ import numpy as np
 import sys
 import scipy
 
-#graph_loc = sys.argv[1]
-graph_loc = "/home/brett/brett.israelsen@gmail.com/Education/Graduate/Fall 2014/CS5352/Project/saved_graphs/Tree_c_2_l_10.g.xml.gz"
+graph_loc = sys.argv[1]
+#graph_loc = "/home/brett/brett.israelsen@gmail.com/Education/Graduate/Fall 2014/CS5352/Project/saved_graphs/Tree_c_2_l_10.g.xml.gz"
 g = load_graph(graph_loc)
 N = g.num_vertices()
 
@@ -25,10 +25,11 @@ def do_stuff(grp, m_grp,strProp):
     return g_dist
     
 for grp in list(set(b_grp)):
-    sys.stdout.write("bayes ")
+    sys.stdout.write("bayes1 ")
     g_dist = do_stuff(grp, b_grp,'bayes')
     
 
+    sys.stdout.write("bayes2 ")
     global_dist = []
     for i in list(set(b_grp)):
         gd = float(len(g_dist[g_dist ==i]))/ float(len(b_grp[b_grp == i]))
