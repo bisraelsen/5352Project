@@ -1,0 +1,70 @@
+\newread\myinput
+
+\newcommand{\showbayes}[1]{
+% We use '\jobname.temp' to create a uniquely-named temporary file
+\immediate\write18{cat ../Bayes/#1/net.txt.k > '\jobname.temp'}
+\openin\myinput=\jobname.temp
+% The group localizes the change to \endlinechar
+\bgroup
+  \endlinechar=-1
+  \read\myinput to \localline
+  % Since everything in the group is local, we have to explicitly make the
+  % assignment global
+  \global\let\kbayes\localline
+\egroup
+\closein\myinput
+% Clean up after ourselves
+\immediate\write18{rm -f -- '\jobname.temp'}
+
+\newread\myinput
+
+\center
+Bayes
+\includegraphics[width=\linewidth]{../Bayes/#1/#1.png}
+$K=\kbayes$
+
+}
+
+\newcommand{\showmdl}[1] {
+% We use '\jobname.temp' to create a uniquely-named temporary file
+\immediate\write18{../get.py ../MDL/#1/mat.p > '\jobname.temp'}
+\openin\myinput=\jobname.temp
+% The group localizes the change to \endlinechar
+\bgroup
+  \endlinechar=-1
+  \read\myinput to \localline
+  % Since everything in the group is local, we have to explicitly make the
+  % assignment global
+  \global\let\kmdl\localline
+\egroup
+\closein\myinput
+% Clean up after ourselves
+\immediate\write18{rm -f -- '\jobname.temp'}
+
+\center
+MDL
+\includegraphics[width=\linewidth]{../MDL/#1/#1.png}
+$K=\kmdl$
+
+}
+
+\newcommand{\showgraph}[1]{
+\vspace{10pt}
+\begin{minipage}{0.45\linewidth}
+
+\showmdl{#1}
+
+\end{minipage}
+\begin{minipage}{0.45\linewidth}
+
+\showbayes{#1}
+
+\end{minipage}
+\vspace{10pt}
+
+\def\currentgraph{#1}
+}
+
+\newcommand{\showlearning}[1]{
+    \includegraphics[width=\linewidth]{../Bayes/#1/figure.png}
+}
