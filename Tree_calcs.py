@@ -38,12 +38,12 @@ for grp in list(set(b_grp)):
 
 for grp in list(set(m_grp)):
     sys.stdout.write("mdl ")
-    g_dist = do_stuff(grp, b_grp,'mdl')
+    g_dist = do_stuff(grp, m_grp,'mdl')
     
 
     global_dist = []
-    for i in list(set(b_grp)):
-        gd = len(g_dist[g_dist ==i])/ len(b_grp[b_grp == i])
+    for i in list(set(m_grp)):
+        gd = len(g_dist[g_dist ==i])/ len(m_grp[m_grp == i])
         global_dist.append(gd)
         sys.stdout.write(str(gd) + " ")
     print("")
