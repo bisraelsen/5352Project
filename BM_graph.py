@@ -48,7 +48,7 @@ def degV(v,block):
 #     self_loops=False, block_membership=None, block_type='int', degree_block=False, random=True, verbose=False, **kwargs)
 
 
-save_name = 'BM_n_' + str(N) + '_g_'+ str(len(n)) +  '.xml.gz'
+save_name = 'BM_n_%d_g_%d_pi_%d_po_%d.xml.gz' % (N, len(n), round(100 * pin[0]), round(100 * pout[0]))
 g, bm = random_graph(N, degV, directed=False,
                          model="blockmodel-traditional",
                          block_membership=blockmembership,
