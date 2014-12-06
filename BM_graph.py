@@ -54,12 +54,13 @@ def degV(v,block):
 
 
 save_name = 'BM_n_' + str(N) + '_g_'+ str(len(n)) +  '.xml.gz'
-g, bm = random_graph(N, degV, random=True, directed=False,
+g, bm = random_graph(N, degV, random=True, directed=False,n_iter=100,
                          model="blockmodel-traditional",
                          block_membership=blockmembership,
                          vertex_corr=corr)
 
-graph_draw(g, vertex_fill_color=bm, edge_color="black", output="blockmodel_500.pdf")
+print(g.degree_property_map('total').a)
+graph_draw(g,vertex_text=g.vertex_index, vertex_fill_color=bm, output="blockmodel_500.pdf")
 
 g.set_directed(False)
     
