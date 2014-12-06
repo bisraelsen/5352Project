@@ -54,8 +54,8 @@ def degV(v,block):
 
 
 save_name = 'BM_n_' + str(N) + '_g_'+ str(len(n)) +  '.xml.gz'
-g, bm = random_graph(N, degV, random=True, directed=False,n_iter=100,
-                         model="blockmodel-traditional",
+g, bm = random_graph(N, degV, random=True, directed=False,n_iter=1000,
+                         model="blockmodel",
                          block_membership=blockmembership,
                          vertex_corr=corr)
 
