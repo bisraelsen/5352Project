@@ -1,0 +1,151 @@
+\documentclass[twocolumn,twoside]{IEEEtran}
+
+\usepackage{graphicx}
+\usepackage{svg}
+
+\input{include/prelude.tex}
+% \usepackage{minipage}
+
+\nonstopmode \title{Comparison of Variational Bayes and Minimum Description
+Length Algorithms for Determining $k$ in Undirected Networks}
+
+\author{Brett Israelsen & Joshua Rahm}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We have compared two different algorithms for discovering
+the number of groups, $k$, in a network given no prior information about the
+structure of the network. The two algorithms we have tested in this project are
+the Minimum Description Length (MDL) and Variational Bayes (VB).
+\end{abstract}
+
+\section*{Introduction}\label{sec:Intro}
+In network analysis is is frequently desirable to identify communities (often referred to blocks, modules, or clusters \footnote{Cluster detection is not the same as community detection but is analog in the domain where data are not connected to each other in the style of networks.}). Community detection involves finding groups of vertices that are related in some way typically through some kind of similar characteristics, these properties may not be and in fact are typicall not formally defined. In
+other words they may be inferred by the detection algorithm.
+
+Modeling methods like the statistical block-model (SBM) require an estimate of the number of blocks or communities. Without the use of a community detection algorithm this task falls on the individual doing the analysis to intuit or guess the number of communities in the network. Typically this is not a simple task especially in the case of large real-world networks.
+
+\\prehaps put a ridiculogram here to show what a crazy real-wrold network looks like
+
+It is useful then, to have an algorithm that can analyze the network in an algorithmic manner and identify the number of communities in a graph so that models like SBM can then be used to model the network and generate other networks for analysis.
+
+\emph{original}
+Sometimes, when given a network, it is useful to find community structure in a
+network in order to be able to do further analysis into the structure of the
+network. Many times, little to no prior information is given about the state of
+the network is known. Given this as the case, standard modularity measures like
+greedy agglomeration and the KL heuristic are more difficult to use because of their
+sensitivity to degree such as in the famous Karate Club network.
+
+To combat this, there are several algorithms used to estimate the number of groups ($k$)
+in a network, an from there, a reduction algorithm may be used to determine the association
+of each vertex in each of the $k$ groups.
+
+In this paper, we have compared the results obtained from two such algorithms;
+Variational Bayes and Minimum Description Length.
+
+\section*{Background}\label{sec:Background}
+Several methods have been proposed to do community detection. One method that is well known is Modularity maximization \cite{Newman2004}. However, through much analysis and application this method has been know to have some drawbacks such as not being able to recover bipartite structure \cite{Peixoto2013} or recover communities based on degree structure, and is limited by resolution issues \cite{fortunato2007resolution}.
+
+Other methods are based around using generative models (such as the SBM) and then obtain the most likely block model given some criteria. Several of these methods have also been shown to have resoulution limits\cite{fortunato2007resolution} that inhibit their ability to detect communities under a certain size. This severely inhibits their use as a general tool in network analysis and modeling. Another problem with some methods is that they require other parameters to be known a priori.
+
+Two methods that currently stand out as performing well are the Minimum Description Length (MDL) \cite{Peixoto2013} and variational Bayes (VB) \cite{Hofman2008}. Neither of these methods exhibits the resolution limit problems or require other network information to be known before analysis.
+
+\emph{MDL}
+MDL was first introduced with application to SBM in \cite{Rosvall2007}. The key concept of MDL is that the best model for a network is the model that most compresses it. Thus MDL find the number of communities that will allow the network to be represented with the least amount of information. In \cite{Peixoto2013} a general algorithm was introduced to execute this algorithm on a general network.
+
+\emph{VB}
+VB was introduced by Hoffman and Wiggins in \cite{Hoffman2008}. This method was shown to be the general version serveral other existing methods. This method is based on Bayesian methods for model selection. Using Bayesian techniques then the basic idea of VB is to infer a number of communities(referred to as modules in the paper) that is most probable and then infer posterior distributions over model parameters. In the paper VB is shown to perform better that Modularity specifically with regards to the resolution limit.
+
+While each of these two methods has been shown to behave well in some situations there has been little or no work (according to our knowledge and investigation) that investigates how the differences between these two approaches may affect their use/desirability in varied real-world networks.
+
+Our aim in this paper is to document our investigation into the similarities and differences between these two approaches for detecting the number of communities. Our hope is that this information will help practicioners to choose between the two methods when applying them to data sets.
+
+\section*{Approach}\label{sec:Approach}
+Stated again, our aim is to compare the performance of the MDL and VB algorithms on several simulated networks and some real networks.
+
+We were able to make extensive use of code produced by the authors of both MDL and VB \cite{peixoto_graph-tool_2014} and \cite{Hofman_python_2008}. Our first goal was to re-prodce some of the key results from both the papers \cite{Peixoto2013} and \cite{Hoffman2008}, and then as the examples were different in both papers we compared them against each other.
+
+From there we moved to a deeper comparison between the two methods. Several of the canonical graph models were used in the attempt to pinppoint or decouple the effects of specific graph properties on the performance of each of the methods. The canonical grapph types we used are: binary trees, Prices networks (preferential attachment), random graphs (Erdos-Reyni with fixed degree vertices, and Poisson distributed degree), block model generated graphs, and a class of clique-based graphs that are
+designed as resolution limit tests.
+
+The key result of our work should be considered the value $K$(number of communities) given by each algorithm. However, in an attempt to more fundamentally understand the effects of the choices of $K$ we used an SBM to fit the respective graphs and then analyze the properties of the resulting communities.
+
+Our results and discussion are presented as follows: first we address the general behaviors of the two algorithms on simulated networks. From thre we discuss the results on some interesting real networks.
+
+\section*{Results \& Discussion}\label{sec:RD}
+
+
+
+% For tree graphs:
+%
+% n_i over N for each group i as a histogram
+% Distribution of level by community
+% 
+% For Ring Graphs:
+%
+%   n_i over n_c
+%   m_i over (choose n_c 2)
+%   average degree for MDL
+%
+% Price:
+%   
+% Poisson:
+%   Average degree of each group
+\subsection*{\underline{Well-Known Graphs}}
+
+\newcommand{\inputsamepage}[1] {
+    \begin{minipage}{\linewidth}
+        \input{#1}
+    \end{minipage}
+}
+
+We have run these algorithms on graphs which are well known. And have analyzed the
+results.
+
+\subsection*{Adjective-Nouns}
+\inputsamepage{include/adjnoun.tex}
+
+\subsection*{Bow-tie}
+\inputsamepage{include/bowtie.tex}
+
+\subsection*{Dolphins}
+\inputsamepage{include/dolphins.tex}
+
+\subsection*{Les Mis\'{e}rables}
+\inputsamepage{include/lesmis.tex}
+
+\subsection*{Football}
+\inputsamepage{include/football.tex}
+
+\subsection*{Zachary Karate Club}
+\inputsamepage{include/karate.tex}
+
+\subsection*{Political Books}
+\inputsamepage{include/polbooks.tex}
+
+\subsection*{Serengeti Foodweb}
+\inputsamepage{include/serengeti-foodweb.tex}
+
+\break
+\section*{Binary Trees}
+\input{include/trees.tex}
+
+\break
+\section*{Ring Graphs}
+\input{include/rings.tex}
+
+\subsection*{Poisson Distrubted Random Graph}
+
+\subsection*{Configuration Model of Existing Graphs}
+
+\subsubsection*{Karate Club}
+
+\subsubsection*{Sarengeti Food Web}
+
+\subsubsection*{Political Books}
+
+\end{document}
