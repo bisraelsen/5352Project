@@ -60,6 +60,7 @@ g, bm = random_graph(N, degV, random=True, directed=False,n_iter=100,
                          vertex_corr=corr)
 
 # print(g.degree_property_map('total').a)
+print(save_name)
 graph_draw(g,vertex_text=g.vertex_index, vertex_fill_color=bm, output="blockmodel_500.pdf")
 
 g.set_directed(False)
