@@ -28,20 +28,25 @@ def flip(p):
 #Function defining the probabilities that differentg groups will connect to eachother
 def corr(a, b):
     if a == b:
+        #print(pin[a])
         return pin[a]
     else:
+        #print(pout[a])
         return pout[a]
 
 def degV(v,block):
-    deg = 0
+    deg_in = 0
+    deg_out = 0
+    #Loop through all vertices in the block
     for i in range(0,n[block]):
         if flip(pin[block]):
-            deg += 1
+            deg_in += 1
+    #loop through all vertices NOT of block
     for i in range(0,sum(np.array(n)[np.array(range(0,len(n)))!=block])):
-        if flip(pin[block]):
-            deg += 1
-    #print(deg)
-    return deg    
+        if flip(pout[block]):
+            deg_out += 1
+    #print(deg_in + deg_out)
+    return deg_in + deg_out    
         
 #Generate stochastic blockmodel graph    
 #graph_tool.generation.random_graph(N, deg_sampler, directed=True, parallel_edges=False,
@@ -49,12 +54,13 @@ def degV(v,block):
 
 
 save_name = 'BM_n_%d_g_%d_pi_%d_po_%d.xml.gz' % (N, len(n), round(100 * pin[0]), round(100 * pout[0]))
-g, bm = random_graph(N, degV, directed=False,
+g, bm = random_graph(N, degV, random=True, directed=False,n_iter=100,
                          model="blockmodel-traditional",
                          block_membership=blockmembership,
                          vertex_corr=corr)
 
-graph_draw(g, vertex_fill_color=bm, edge_color="black", output="blockmodel_500.pdf")
+# print(g.degree_property_map('total').a)
+graph_draw(g,vertex_text=g.vertex_index, vertex_fill_color=bm, output="blockmodel_500.pdf")
 
 g.set_directed(False)
     
