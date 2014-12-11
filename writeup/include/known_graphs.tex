@@ -2,7 +2,7 @@ Finally, no discussion would be complete without a discussion of
 the applications and interpretations of these results on real networks.
 
 For example, one of the most interesting networks seen for both algorithms
-is the Serengeti Food Web.
+is the Serengeti Food Web\cite{Baskerville2011}.
 
 \showgraphwithtitle{Serengeti Food Web}{serengeti-foodweb}
 
@@ -18,11 +18,13 @@ is very apparent from the complexity curve.
 
 \showgraphwithtitle{Zachary Karate Club}{karate}
 
-The famous karate club network is almost the opposite of the Serengeti
+The famous karate club network\cite{Zachary1977} is almost the opposite of the Serengeti
 Foodweb. In this network, MDL does not find enough structure to merit the
 creation of more than one group. However, VB found enough structure to
 find five groups. Like MDL in the food web, VB has found 3 top level groups
 of which two are broken into a core-periphery structure.
+
+The dolphin data set\cite{Lusseau2003} \textbf{add stuff here}
 
 \showgraphwithtitle{Dolphins}{dolphins}
 
@@ -33,8 +35,8 @@ job on some networks, while not so reasonable on others. The algorithm
 of choice is dependent on the desired behavior. We have found that in general
 MDL behaves in a more predictable way than VB. This may be exemplified in many of
 the previous examples by the variation seen in the VB results. For example, for
-some graphs with little to structure will either cause VB to diverge
-into assigning as many groups as there are vertices, and other times only
+some graphs with little to no structure will either cause VB to diverge
+into assigning as many groups as there are vertices, or only
 one group is detected. MDL on the other hands will always discover just one
 group for graphs with inherently little structure.
 
