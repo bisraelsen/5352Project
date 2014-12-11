@@ -1,0 +1,38 @@
+We create the set of random graphs using the two parameters
+of probability $p$ and number of nodes $n$
+
+Examples of such graphs are as follows
+
+\showgraphwithparams{
+{\begin{align*}
+n &: 20 \\
+p &: 0.2
+\end{align*}}
+}{Random_20_20}
+
+\showgraphwithparams{
+{\begin{align*}
+n &: 100 \\
+p &: 0.1
+\end{align*}}
+}{Random_100_10}
+
+\showgraphwithparams{
+{\begin{align*}
+n &: 100 \\
+p &: 0.22
+\end{align*}}
+}{Random_100_22}
+
+When we fix the number of nodes to $50$ and set $p$ to be our
+free variable, we can get a sense of how these algorithms find
+groups.
+
+\includesvg[width=\linewidth]{random}
+
+For all the tested values, MDL only found 1 group. This is understandable
+as the behavior of MDL when there is no discernible structure is to
+return only a single group. In this sense, MDL was perfect in calling
+the bluff. VB is not as such. As the diagram shows, as the random
+graph approaches a clique, VB approaches to $k=1$. However, the road to
+that point is very variable and almost random itself.

@@ -1,0 +1,53 @@
+Finally, no discussion would be complete without a discussion of
+the applications and interpretations of these results on real networks.
+
+For example, one of the most interesting networks seen for both algorithms
+is the Serengeti Food Web.
+
+\showgraphwithtitle{Serengeti Food Web}{serengeti-foodweb}
+
+In this network, MDL found 4 solid groups. It seems to have detected
+two ``metagroups'', one for each side. Each metagroups is then broken up
+into a core-periphery structure with two subgroups. It seems that MDL
+has found two ecosystems with their own set of predators and prey.
+
+In this example, VB is not so lucky. It has not detected any structure. This
+is very apparent from the complexity curve.
+
+\showlearning{serengeti-foodweb}
+
+\showgraphwithtitle{Zachary Karate Club}{karate}
+
+The famous karate club network is almost the opposite of the Serengeti
+Foodweb. In this network, MDL does not find enough structure to merit the
+creation of more than one group. However, VB found enough structure to
+find five groups. Like MDL in the food web, VB has found 3 top level groups
+of which two are broken into a core-periphery structure.
+
+\showgraphwithtitle{Dolphins}{dolphins}
+
+\section*{Conclusions}
+
+There is no clear winner between MDL and VB. Both algorithms do a reasonable
+job on some networks, while not so reasonable on others. The algorithm
+of choice is dependent on the desired behavior. We have found that in general
+MDL behaves in a more predictable way than VB. This may be exemplified in many of
+the previous examples by the variation seen in the VB results. For example, for
+some graphs with little to structure will either cause VB to diverge
+into assigning as many groups as there are vertices, and other times only
+one group is detected. MDL on the other hands will always discover just one
+group for graphs with inherently little structure.
+
+VB excels at finding many groups, and when $k$ converges, many
+high resolution structures may be picked out, generating much more
+information than MDL can. In the Karate Club and Dolphins networks
+while MDL only picked out two or three groups, VB was able to, in
+addition to finding those groups, recurse into those groups and find
+subgroups, making it much more flexible as a whole.
+
+With the flexibility VB offers, there a very real possibility of over fitting
+the data, which is what was seen over and over again in the previous networks.
+With this, MDL is much better at picking out the macro structure of the network
+reducing the sway of random noise.
+
+

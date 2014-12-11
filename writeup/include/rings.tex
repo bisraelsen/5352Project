@@ -1,3 +1,59 @@
-Ring graphs are graphs which consist of cliques of nodes
-around a ring. These graphs are trivial to find groups in
-just by looking at them.
+Ring graphs are graphs which consist of cliques of nodes around a ring. To
+construct the ring graphs, there are two parameters we have defined: the clique
+size $c$ and the number of cliques in the ring $g$
+
+Some examples of such graphs are as follows.
+
+\begin{minipage}{\linewidth}
+
+\showgraphwithparams{
+{\begin{align*}
+c &: 4 \\
+g &: 2
+\end{align*}}
+}{RLT_c_4_g_2}
+
+\showgraphwithparams{
+{\begin{align*}
+c &: 4 \\
+g &: 10
+\end{align*}}
+}{RLT_c_4_g_10}
+
+\showgraphwithparams{
+{\begin{align*}
+c &: 40 \\
+g &: 30
+\end{align*}}
+}{RLT_c_40_g_30}
+
+\end{minipage}
+
+Sometimes, with these graphs, Bayes and MDL under estimate the number of
+groups, however, often, Bayes does a good job detecting an expected group
+structure. In order to further understand how each algorithm detects
+these groups and when they find an unexpected answer, we calculated the
+following plot which shows the number of groups detected as a function of
+the number of groups around the ring, with the clique size fixed to
+$c=4$.
+
+\begin{minipage}{\linewidth}
+\includesvg[width=\linewidth]{k_vs_g_c_4}
+\end{minipage}
+
+MDL never does a great job discovering the number of groups, so for these
+graphs, Bayes is generally going to be the better choice; however, this
+is not without reservation as there is some critical point at $g=24$ that
+causes VB to stop finding more groups. The mechanism for this is not fully
+understood.
+
+Increasing the number of nodes per clique changes significantly the
+results.
+
+\begin{minipage}{\linewidth}
+\includesvg[width=\linewidth]{k_vs_g_c_10}
+\end{minipage}
+
+Here it is obvious that MDL does better, keeping up with VB for $g < 20$,
+but falls far behind beginning at the critical point of $g=20$.
+

@@ -1,3 +1,28 @@
+
+\usepackage[framemethod=TikZ]{mdframed}% Required for creating boxes
+\usepackage{amsmath}
+
+\mdfdefinestyle{left}{
+    linecolor=black, % Outer line color
+    outerlinewidth=0.1pt, % Outer line width
+    roundcorner=0pt, % Amount of corner rounding
+    innertopmargin=10pt, % Top margin
+    innerbottommargin=10pt, % Bottom margin
+    innerrightmargin=10pt, % Right margin
+    innerleftmargin=10pt, % Left margin
+    backgroundcolor=white, % Box background color
+    frametitlebackgroundcolor=white, % Title background color
+    frametitlerule=false, % Title rule - true or false
+    frametitlerulecolor=white, % Title rule color
+    frametitlerulewidth=0.5pt, % Title rule width
+    frametitlefont=\Large, % Title heading font specification
+    font=\small,
+    rightline=false,
+    leftline=true,
+    topline=false,
+    bottomline=false
+}
+
 \newread\myinput
 
 \newcommand{\showbayes}[1]{
@@ -16,11 +41,10 @@
 % Clean up after ourselves
 \immediate\write18{rm -f -- '\jobname.temp'}
 
-\newread\myinput
-
 \center
 Bayes
 \includegraphics[width=\linewidth]{../Bayes/#1/#1.png}
+
 $K=\kbayes$
 
 }
@@ -44,6 +68,7 @@ $K=\kbayes$
 \center
 MDL
 \includegraphics[width=\linewidth]{../MDL/#1/#1.png}
+
 $K=\kmdl$
 
 }
@@ -68,3 +93,34 @@ $K=\kmdl$
 \newcommand{\showlearning}[1]{
     \includegraphics[width=\linewidth]{../Bayes/#1/figure.png}
 }
+
+\newcommand{\showgraphwithparams}[2]{
+    \vspace{3pt}
+
+    \begin{tabular}{l | r}
+        \hline \\
+        \begin{minipage}{0.2\linewidth}
+
+        #1
+
+        \end{minipage} &
+        \begin{minipage}{0.7\linewidth}
+    
+            \showgraph{#2}
+    
+        \end{minipage} \\
+       \hline
+    \end{tabular}
+
+    \vspace{3pt}
+}
+
+\newcommand{\showgraphwithtitle}[2]{
+    \begin{minipage}{\linewidth}
+        \vspace{10pt}
+        \center #1
+
+        \showgraph{#2}
+    \end{minipage}
+}
+

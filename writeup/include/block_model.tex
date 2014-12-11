@@ -1,0 +1,55 @@
+For the final synthetic data set, we will generate new graphs from block
+model graphs. Each block model graph will come with four parameters:
+number of vertices $n$, the number of groups $g$, probability of
+connecting internal to a block $p_{in}$ and probability of connecting to
+another block $p_{out}$.
+
+Some examples of such graphs are as follows:
+
+\showgraphwithparams{
+
+{\begin{align*}
+n &: 100 \\
+g &: 3 \\
+p_{in} &: 0.2 \\
+p_{out} &: 0.001
+\end{align*}}
+
+}{BM_n_100_g_3_pi_20_po_0}
+
+\showgraphwithparams{
+{\begin{align*}
+n &: 100 \\
+g &: 3 \\
+p_{in} &: 0.01 \\
+p_{out} &: 0.10
+\end{align*}}
+}{BM_n_100_g_3_pi_1_po_10}
+
+\showgraphwithparams{
+{\begin{align*}
+n &: 350 \\
+g &: 7 \\
+p_{in} &: 0.05 \\
+p_{out} &: 0.001
+\end{align*}}
+}{BM_n_350_g_7_pi_5_po_0}
+
+For the first set of tests, we set the parameters $n=200$, $g=4$, and
+$p_{out} = 1-p_{in}$. As such, our free parameter is $p_{in}$. Varying this
+
+\includesvg{k_vs_p_out}
+
+This graphs gives a sense of the resolution limit of the different
+algorithms. For graphs of a more assortative nature ($p_{in} > p_{out}$),
+Bayes has a higher resolution than MDL, and is able to discover groups
+even as they become almost indistinguishable. This changes as the network
+becomes much more disassortative ($p_{out} > p_{in}$). MDL is the first
+to detect the emergence of multiple groups. Bayes on the other hand never
+fully emerges.
+
+It is also important to note that MDL is very consistent. The only two
+value of $k$ which are represented are 4 and 1. VB, on the other hand,
+detects a range of groups having 1, 2, 4 and even 5 represented.
+
+
