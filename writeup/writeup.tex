@@ -37,7 +37,10 @@ algorithm this task falls on the individual doing the analysis to intuit or
 guess the number of communities in the network. Typically this is not a simple
 task especially in the case of large real-world networks.
 
-% prehaps put a ridiculogram here to show what a crazy real-wrold network looks like
+\begin{figure}
+\includegraphics[width=\linewidth]{../Bayes/pgp-strong-2009/pgp-strong-2009.png}
+\caption{PGP Strong 2009 Network}
+\end{figure}
 
 It is useful then to have an algorithm that can analyze the network in an
 algorithmic manner and identify the number of communities in a graph so that
@@ -80,14 +83,15 @@ Description Length (MDL) \cite{Peixoto2013} and variational Bayes (VB)
 \cite{Hofman2008}. Neither of these methods exhibits the resolution limit
 problems or require other network information to be known before analysis.
 
-\emph{MDL - } MDL was first introduced with application to SBM in
+\begin{itemize}
+\item{\textbf{MDL} } MDL was first introduced with application to SBM in
 \cite{Rosvall2007}. The key concept of MDL is that the best model for a network
 is the model that most compresses it. Thus MDL find the number of communities
 that will allow the network to be represented with the least amount of
 information. In \cite{Peixoto2013} a general algorithm was introduced to
 execute this algorithm on a general network.
 
-\emph{VB - } VB was introduced by Hofman and Wiggins in \cite{Hofman2008}. This
+\item{\textbf{VB} } VB was introduced by Hofman and Wiggins in \cite{Hofman2008}. This
 method was shown to be the general version several other existing methods.
 This method is based on Bayesian methods for model selection. Using Bayesian
 techniques then the basic idea of VB is to infer a number of
@@ -95,6 +99,7 @@ communities(referred to as modules in the paper) that is most probable and then
 infer posterior distributions over model parameters. In the paper VB is shown
 to perform better that Modularity specifically with regards to the resolution
 limit.
+\end{enumerate}
 
 While each of these two methods has been shown to behave well in some
 situations there has been little or no work (according to our knowledge and

@@ -24,32 +24,48 @@ creation of more than one group. However, VB found enough structure to
 find five groups. Like MDL in the food web, VB has found 3 top level groups
 of which two are broken into a core-periphery structure.
 
-The dolphin data set\cite{Lusseau2003} \textbf{add stuff here}
+The dolphin data set\cite{Lusseau2003}
+
+This graph is an interesting one because MDL has managed to find the 'correct'
+partition. This is great, but in fact VB found a more interesting set of
+things. The MDL algorithm seems to have found, like in the previous, certain
+``metagroups'' that are sub-groups of the groups found by the MDL algorithm.
 
 \showgraphwithtitle{Dolphins}{dolphins}
+
+Without more knowledge of data within the network. It is hard for us to tell
+what VB actually found. Perhaps it found the same two groups that MDL found
+along with data about the social classes of the dolphins within those two
+groups. Whatever the reason, Variational Bayes finds many more groups than MDL,
+while retaining the ability to group these groups to create the same groups
+that MDL found.
 
 \section*{Conclusions}
 
 There is no clear winner between MDL and VB. Both algorithms do a reasonable
-job on some networks, while not so reasonable on others. The algorithm
-of choice is dependent on the desired behavior. We have found that in general
-MDL behaves in a more predictable way than VB. This may be exemplified in many of
+job on some networks, while not so reasonable on others. The algorithm of
+choice is dependent on the desired behavior. We have found that in general MDL
+behaves in a more predictable way than VB. This may be exemplified in many of
 the previous examples by the variation seen in the VB results. For example, for
-some graphs with little to no structure will either cause VB to diverge
-into assigning as many groups as there are vertices, or only
-one group is detected. MDL on the other hands will always discover just one
-group for graphs with inherently little structure.
+some graphs with little to no structure will either cause VB to diverge into
+assigning as many groups as there are vertices, or only one group is detected.
+MDL on the other hands will always discover just one group for graphs with
+inherently little structure.
 
-VB excels at finding many groups, and when $k$ converges, many
-high resolution structures may be picked out, generating much more
-information than MDL can. In the Karate Club and Dolphins networks
-while MDL only picked out two or three groups, VB was able to, in
-addition to finding those groups, recurse into those groups and find
-subgroups, making it much more flexible as a whole.
+VB excels at finding many groups, and when $k$ converges, many high resolution
+structures may be picked out, generating much more information than MDL can. In
+the Karate Club and Dolphins networks while MDL only picked out two or three
+groups, VB was able to, in addition to finding those groups, recurse into those
+groups and find subgroups, making it much more flexible as a whole.
 
 With the flexibility VB offers, there a very real possibility of over fitting
 the data, which is what was seen over and over again in the previous networks.
 With this, MDL is much better at picking out the macro structure of the network
 reducing the sway of random noise.
+
+Over all, neither should always be used above the other. Rather, the modeler
+should compare the pros and cons of each algorithm and pick the best for the
+model and the data being obtained from the graph and what the potential risks
+are
 
 
